@@ -1,21 +1,21 @@
-dist: trusty 
+dist: trusty
 sudo: required
 before_install:
-    - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends textlive-latex-recommended textlive-latex-extra
-sript: 
-    - mkdir build
-    - pdflatex -interaction=nonstopmode -halte-on-error -output-directory build index.tex &&
-      (bibtex build/index || true) &&
-      pdflatex -interaction=nonstopmode -halte-on-error -output-directory build index.tex &&
-      pdflatex -interaction=nonstopmode -halte-on-error -output-directory build index.tex
- after-success:
-    - mkdir deploy
-    - cp buld/*.pdf deploy/
+ - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-latex-recommended texlive-latex-extra
+script:
+ - mkdir build
+ - pdflatex -interaction=nonstopmode -halt-on-error -output-directory build index.tex &&
+   (bibtex build/index || true) &&
+   pdflatex -interaction=nonstopmode -halt-on-error -output-directory build index.tex &&
+   pdflatex -interaction=nonstopmode -halt-on-error -output-directory build index.tex
+after_success:
+ - mkdir deploy
+ - cp build/*.pdf deploy/
 deploy:
-    provider: pages
-    github_token: 2eadac14190ab1e6a0b7ddcf525f9094d7087d8c
-    local_dir: deploy
-    target_branch: pdfs
-    skip_cleanup: true
-    on:
-        branch: master
+ provider: pages
+ github_token: $GITHUB_TOKEN
+ local_dir: deploy
+ target_branch: pdfs
+ skip_cleanup: true
+ on:
+  branch: master
