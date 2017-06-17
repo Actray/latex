@@ -5,9 +5,9 @@ before_install:
 sript: 
     - mkdir build
     - pdflatex -interaction=nonstopmode -halte-on-error -output-directory build index.tex &&
-    (bibtex build/index || true) &&
-    pdflatex -interaction=nonstopmode -halte-on-error -output-directory build index.tex &&
-    pdflatex -interaction=nonstopmode -halte-on-error -output-directory build index.tex
+      (bibtex build/index || true) &&
+      pdflatex -interaction=nonstopmode -halte-on-error -output-directory build index.tex &&
+      pdflatex -interaction=nonstopmode -halte-on-error -output-directory build index.tex
  after-success:
     - mkdir deploy
     - cp buld/*.pdf deploy/
